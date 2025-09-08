@@ -1,0 +1,96 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <style>
+    body {
+      background: #f5f7fa;
+    }
+    .register-container {
+      max-width: 420px;
+      margin: 40px auto;
+      padding: 38px 28px 28px 28px;
+      background: #fff;
+      border-radius: 18px;
+      box-shadow: 0 6px 40px rgba(33,150,243,0.13);
+      transition: box-shadow 0.3s;
+    }
+    .register-container:hover {
+      box-shadow: 0 12px 54px rgba(33,150,243,0.19);
+    }
+    .register-title {
+      text-align: center;
+      font-size: 1.7em;
+      font-weight: 700;
+      color: #0096c7;
+      margin-bottom: 22px;
+      letter-spacing: 0.03em;
+    }
+    .register-form label {
+      font-weight: 600;
+      color: #16476d;
+      margin-bottom: 6px;
+      display: block;
+      font-size: 1em;
+      letter-spacing: 0.02em;
+    }
+    .register-form input,
+    .register-form select,
+    .register-form textarea {
+      width: 100%;
+      padding: 13px 10px;
+      margin-bottom: 15px;
+      border: 1.5px solid #e3e1ee;
+      border-radius: 8px;
+      background: #f7f8fc;
+      font-size: 1.05em;
+      box-sizing: border-box;
+      outline: none;
+      transition: border-color 0.19s, background 0.19s;
+    }
+    .register-form input:focus,
+    .register-form select:focus,
+    .register-form textarea:focus {
+      border-color: #0096c7;
+      background: #eef9fd;
+    }
+    .register-btn {
+      background: linear-gradient(90deg, #0096c7 70%, #21cbf3 120%);
+      color: #fff;
+      border: none;
+      padding: 13px 30px;
+      font-size: 1.13em;
+      border-radius: 9px;
+      font-weight: 700;
+      cursor: pointer;
+      margin-top: 8px;
+      width: 100%;
+      box-shadow: 0 2px 12px rgba(0,150,199,0.08);
+      transition: background 0.21s;
+      letter-spacing: 0.03em;
+      animation: showBtn 0.5s ease-out;
+    }
+    .register-btn:hover {
+      background: #108eb8;
+    }
+    @keyframes showBtn {
+      from { opacity: 0; transform: translateY(16px);}
+      to   { opacity: 1; transform: translateY(0);}
+    }
+    @media (max-width: 600px) {
+      .register-container {
+        padding: 18px 7px;
+      }
+      .register-title {
+        font-size: 1.19em;
+      }
+    }
+  </style>
+  <div class="register-container">
+    <div class="register-title">Cadastro de Usuário</div>
+    <form method="post" class="register-form">
+      {% csrf_token %}
+      {{ user_form.as_p }}
+      <button type="submit" class="register-btn">Cadastrar</button>
+    </form>
+  </div>
+{% endblock %}

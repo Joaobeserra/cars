@@ -1,0 +1,191 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <style>
+    body {
+      background: #f5f7fa;
+    }
+    .car-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 28px;
+      margin: 0 auto;
+      max-width: 1200px;
+      padding: 32px 16px;
+    }
+    .car-card {
+      background: #fff;
+      box-shadow: 0 4px 32px rgba(33,150,243,0.11);
+      border-radius: 16px;
+      overflow: hidden;
+      text-align: center;
+      transition: box-shadow 0.35s, transform 0.33s;
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      max-width: 340px;
+      margin: 0 auto;
+      border: none;
+    }
+    .car-card:hover {
+      cursor: pointer;
+      box-shadow: 0 12px 44px rgba(33,150,243,0.21);
+      transform: translateY(-3px) scale(1.03);
+    }
+    .car-card img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+      background: #e3e1e1;
+      border-bottom: 1.5px solid #e3e1ee;
+    }
+    .car-card h2 {
+      font-size: 1.18em;
+      font-weight: 700;
+      margin: 16px 0 8px 0;
+      color: #287cb2;
+      letter-spacing: 0.04em;
+    }
+    .car-card p {
+      font-size: 1rem;
+      color: #0096c7;
+      margin-bottom: 16px;
+      letter-spacing: 0.01em;
+      font-weight: 500;
+    }
+    .no-results {
+      grid-column: 1/-1;
+      text-align: center;
+      color: #bbb;
+      font-size: 1.2em;
+      margin-top: 40px;
+      padding: 40px 0;
+    }
+    @media (max-width: 900px) {
+      .car-grid {
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 18px;
+        padding: 12px 2px;
+        max-width: 99vw;
+      }
+      .car-card img { height: 120px; }
+    }
+    @media (max-width: 600px) {
+      .car-grid {
+        grid-template-columns: 1fr;
+        gap: 12px;
+        padding: 6px;
+      }
+      .car-card {
+        max-width: 99vw;
+      }
+    }
+    /* VISUAL AJUSTADO DA BARRA DE PESQUISA */
+    .search-bar-wrapper {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      margin: 32px 0 24px 0; /* Espaço extra acima: aumente este valor conforme desejar */
+    }
+    .search-bar-form {
+      display: flex;
+      align-items: center;
+      background: #fff;
+      border-radius: 32px;
+      box-shadow: 0 2px 16px rgba(33,150,243,0.10);
+      border: none;
+      padding: 2px 10px;
+      max-width: 470px;
+      width: 100%;
+      transition: box-shadow 0.25s;
+      position: relative;
+    }
+    .search-bar-form:focus-within {
+      box-shadow: 0 6px 32px rgba(33,150,243,0.19);
+    }
+    .search-bar-form input[type="text"] {
+      flex: 1;
+      padding: 13px 18px;
+      border: none;
+      border-radius: 32px;
+      font-size: 1.08em;
+      background: transparent;
+      color: #2977a5;
+      font-weight: 500;
+      letter-spacing: 0.01em;
+      outline: none;
+    }
+    .search-bar-form input[type="text"]::placeholder {
+      color: #8db4d5;
+      font-size: 1.08em;
+      letter-spacing: 0.04em;
+      font-weight: 400;
+    }
+    .search-bar-form button {
+      background: #0096c7;
+      color: #fff;
+      border: none;
+      border-radius: 20px;
+      padding: 0 24px;
+      height: 40px;
+      font-size: 1.08em;
+      font-weight: 700;
+      margin-left: 10px;
+      box-shadow: 0 2px 6px rgba(33,150,243,0.09);
+      cursor: pointer;
+      transition: background 0.18s, box-shadow 0.18s;
+      position: relative;
+      z-index: 2;
+    }
+    .search-bar-form button:hover,
+    .search-bar-form button:focus {
+      background: #21cbf3;
+      box-shadow: 0 3px 16px rgba(33,150,243,0.13);
+    }
+    @media (max-width: 600px) {
+      .search-bar-form {
+        max-width: 99vw;
+        padding: 2px 4px;
+      }
+      .search-bar-form input[type="text"] {
+        font-size: 1em;
+        padding: 10px 10px;
+      }
+      .search-bar-form button {
+        height: 36px;
+        font-size: 1em;
+        padding: 0 12px;
+      }
+      .search-bar-wrapper {
+        margin: 18px 0 18px 0;
+      }
+    }
+  </style>
+
+  <div class="search-bar-wrapper">
+    <form method="GET" action="{% url 'cars_list' %}" class="search-bar-form">
+      <input type="text" name="search" placeholder="Buscar carro..." autocomplete="off">
+      <button type="submit">Buscar</button>
+    </form>
+  </div>
+
+  <div class="car-grid">
+    {% if cars %}
+      {% for car in cars %}
+        <a href="{% url 'car_detail' car.pk %}" style="text-decoration:none;">
+          <div class="car-card">
+            {% if car.photo %}
+              <img src="{{ car.photo.url }}" alt="{{ car.model }} - {{ car.brand }}">
+            {% else %}
+              <img src="/static/images/default_car.jpg" alt="Sem foto disponível">
+            {% endif %}
+            <h2>{{ car.brand }} {{ car.model }}</h2>
+            <p>{{ car.factory_year }} - R$ {{ car.value }}</p>
+          </div>
+        </a>
+      {% endfor %}
+    {% else %}
+      <p class="no-results">Nenhum carro encontrado.</p>
+    {% endif %}
+  </div>
+{% endblock %}
