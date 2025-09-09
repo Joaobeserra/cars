@@ -87,4 +87,10 @@
       <p><strong>Placa:</strong> {{ object.plate }}</p>
       <p><strong>Preço:</strong> R$ {{ object.value }}</p>
   </div>
+  <div class="buttons-container">
+    <a href="{% url 'car_update' object.pk %}" class="btn">Editar</a>
+    <a href="{% url 'cars_list' %}" class="btn btn-secondary">Voltar</a>
+    <a href="{% url 'car_delete' object.pk %}" class="btn btn-danger">Deletar</a>
+
+  </div>
 {% endblock %}

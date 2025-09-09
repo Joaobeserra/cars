@@ -1,8 +1,9 @@
 from django.shortcuts import render, redirect
 from .models import Car
-from .forms import CarModelForm    # Usar import relativo ao invés de 'cars.forms'
+from .forms import CarModelForm
+from django.urls import reverse_lazy
 from django.views import View
-from django.views.generic import ListView, CreateView, DetailView
+from django.views.generic import ListView, CreateView, DetailView,UpdateView, DeleteView
 
 
 class CarsListView(ListView):
@@ -27,3 +28,16 @@ class CarDetailView(DetailView):
     model = Car
     template_name = 'car_detail.html'
     context_object_name = 'car'
+
+class CarUpdateView(UpdateView):
+    model = Car
+    form_class = CarModelForm
+    template_name = 'car_update.html'
+    
+    def get_success_url(self):
+        return reverse_lazy('car_detail', kwargs={'pk': self.object.pk})
+
+class CarDeleteView (DeleteView):
+    model = Car
+    template_name = 'car_delete.html'
+    success_url = '/cars/'
