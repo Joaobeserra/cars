@@ -73,6 +73,7 @@
         <li><a href="{% url 'cars_list' %}">Carros</a></li>
         <li><a href="{% url 'new_car' %}">Cadastrar Carro</a></li>
         <li><a href="{% url 'register' %}">Cadastro usuario</a></li>
+        <li><a href="{% url 'logout' %}">Sair</a></li>
       </ul>
     </nav>
     {% endblock %}
@@ -88,3 +89,144 @@
   </footer>
 </body>
 </html>
+  <style>
+    .car-card {
+      background-color: #fff;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      overflow: hidden;
+      margin: 20px auto;
+      max-width: 400px;
+      text-align: center;
+    }
+
+    .car-card img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+    }
+
+    .car-card h2 {
+      font-size: 1.5rem;
+      margin: 10px;
+    }
+
+    .car-card p {
+      font-size: 1rem;
+      margin-bottom: 10px;
+    }
+
+    .buttons-container {
+      display: flex;
+      justify-content: center;
+      margin-top: 20px;
+      margin-bottom: 20px;
+    }
+
+    .btn {
+      display: inline-block;
+      background-color: #0096c7;
+      color: #fff;
+      border: none;
+      padding: 10px 20px;
+      font-size: 16px;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background-color 0.3s ease-in-out;
+      margin: 0 10px;
+    }
+
+    .btn:hover {
+      background-color: #108eb8;
+    }
+
+    .btn-danger {
+      background-color: #d9534f;
+      text-decoration: none !important;
+    }
+
+    .btn-danger:hover {
+      background-color: #d2221c;
+    }
+
+    .error-message {
+      color: #d9534f;
+      font-size: 14px;
+      margin-top: 5px;
+    }
+
+    a {
+      text-decoration: none !important;
+    }
+  </style>
+  <style>
+    .car-card {
+      background-color: #fff;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      overflow: hidden;
+      margin: 20px auto;
+      max-width: 400px;
+      text-align: center;
+    }
+
+    .car-card img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+    }
+
+    .car-card h2 {
+      font-size: 1.5rem;
+      margin: 10px;
+    }
+
+    .car-card p {
+      font-size: 1rem;
+      margin-bottom: 10px;
+    }
+
+    .buttons-container {
+      display: flex;
+      justify-content: center;
+      margin-top: 20px;
+      margin-bottom: 20px;
+    }
+
+    .btn {
+      display: inline-block;
+      background-color: #0096c7;
+      color: #fff;
+      border: none;
+      padding: 10px 20px;
+      font-size: 16px;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background-color 0.3s ease-in-out;
+      margin: 0 10px;
+    }
+
+    .btn:hover {
+      background-color: #108eb8;
+    }
+
+    .btn-danger {
+      background-color: #d9534f;
+      text-decoration: none !important;
+    }
+
+    .btn-danger:hover {
+      background-color: #d2221c;
+    }
+
+    .error-message {
+      color: #d9534f;
+      font-size: 14px;
+      margin-top: 5px;
+    }
+
+    a {
+      text-decoration: none !important;
+    }
